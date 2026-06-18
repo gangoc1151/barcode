@@ -11,14 +11,13 @@ import DeleteSweepIcon from "@mui/icons-material/DeleteSweep";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import ContentPasteIcon from "@mui/icons-material/ContentPaste";
 import PublishIcon from "@mui/icons-material/Publish";
-import LogoutIcon from "@mui/icons-material/Logout";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import RefreshIcon from "@mui/icons-material/Refresh";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import LockIcon from "@mui/icons-material/Lock";
 import { parseCard, maskCard } from "../functions/parseCard";
 import { apiGetCards, apiPublishCards, apiDeleteCard, apiDeleteAllCards, apiToggleCardSeen } from "../functions/api";
-import { useAuth } from "../functions/useAuth";
 
 let nextId = 1;
 const newRow = (raw = "", seen = false, serverId = null) => ({ id: nextId++, raw, seen, serverId });
@@ -32,7 +31,6 @@ export default function Admin() {
   const [confirmDeleteAll, setConfirmDeleteAll] = useState(false);
   const [msg, setMsg] = useState("");
   const [refreshing, setRefreshing] = useState(false);
-  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const loadCards = useCallback(async () => {
@@ -180,9 +178,8 @@ export default function Admin() {
                 sx={{ background: "#43a047", "&:hover": { background: "#388e3c" } }}>
                 Publish ({validRows.length})
               </Button>
-              <IconButton onClick={() => { logout(); navigate("/login"); }} sx={{ color: "#fff" }}>
-                <LogoutIcon />
-              </IconButton>
+              <Button variant="outlined" startIcon={<ArrowBackIcon />} onClick={() => navigate("/")}
+                sx={{ color: "#fff", borderColor: "rgba(255,255,255,0.5)" }}>Home</Button>
             </Stack>
           </Box>
 

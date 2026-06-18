@@ -5,18 +5,16 @@ import {
   DialogContent, Paper, Stack, Typography, IconButton,
 } from "@mui/material";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import LogoutIcon from "@mui/icons-material/Logout";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CreditCardIcon from "@mui/icons-material/CreditCard";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import TimeClock from "../components/TimeClock";
 import { apiGetCurrentCard, apiMarkSeen } from "../functions/api";
-import { useAuth } from "../functions/useAuth";
 
 export default function Staff() {
   const [card, setCard] = useState(undefined);
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { logout } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => { fetchCurrent(); }, []);
@@ -52,8 +50,8 @@ export default function Staff() {
             <CreditCardIcon sx={{ color: "#3949ab" }} />
             <Typography variant="h6" fontWeight={700} color="#3949ab">Staff View</Typography>
           </Stack>
-          <IconButton onClick={() => { logout(); navigate("/login"); }}>
-            <LogoutIcon />
+          <IconButton onClick={() => navigate("/")}>
+            <ArrowBackIcon />
           </IconButton>
         </Box>
 
