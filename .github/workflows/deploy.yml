@@ -17,9 +17,9 @@ jobs:
         with:
           node-version: "20"
       
-      - run: yarn install --frozen-lockfile
+      - run: rm -f package-lock.json
       
-      - run: yarn build
+      - run: yarn install
       
       - uses: peaceiris/actions-gh-pages@v3
         with:
