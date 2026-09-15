@@ -13,5 +13,6 @@ export function parseCard(raw) {
 }
 
 export function maskCard(digits) {
-  return "**** **** **** " + digits.slice(-4);
+  if (!digits || digits.length < 8) return digits || "";
+  return `${digits.slice(0, 4)} **** **** ${digits.slice(-4)}`;
 }

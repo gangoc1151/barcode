@@ -99,7 +99,6 @@ export default function Admin() {
     } catch { showMsg("❌ Failed to delete all."); }
   };
 
-  const updateRow = (id, raw) => setRows((r) => r.map((row) => row.id === id ? { ...row, raw, seen: false, serverId: null } : row));
   const addRow = () => setRows((r) => [...r, newRow()]);
   const deleteRow = (id) => {
     const row = rows.find((r) => r.id === id);
@@ -220,15 +219,20 @@ export default function Admin() {
                       </TableCell>
                       <TableCell><Typography color="text.secondary">{idx + 1}</Typography></TableCell>
                       <TableCell>
-                        <TextField size="small" fullWidth
-                          placeholder="4342601003804246|10|28|528"
-                          value={row.raw}
-                          onChange={(e) => updateRow(row.id, e.target.value)}
-                          error={row.raw.length > 0 && !parsed}
-                          helperText={parsed
-                            ? <span style={{ color: "#388e3c" }}>✓ {maskCard(parsed.digits)} · {parsed.month}/{parsed.year}</span>
-                            : row.raw.length > 0 ? "Invalid format" : ""}
-                        />
+                        {parsed ? (
+                          <Stack spacing={0.5}>
+                            <Typography fontFamily="monospace" fontWeight={600}>
+                              {maskCard(parsed.digits)}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                              Expires {parsed.month}/{parsed.year}
+                            </Typography>
+                          </Stack>
+                        ) : (
+                          <Typography variant="body2" color={row.raw.length > 0 ? "error.main" : "text.secondary"}>
+                            {row.raw.length > 0 ? "Invalid format" : "No card data"}
+                          </Typography>
+                        )}
                       </TableCell>
                       <TableCell align="center">
                         {row.serverId
