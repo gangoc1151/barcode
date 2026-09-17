@@ -1,11 +1,5 @@
-import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
-
 export default defineConfig({
-  base: "/barcode/",
+  base: "/",
   plugins: [react()],
-  build: {
-    outDir: "dist",
-    emptyOutDir: true,
-  },
+  build: { outDir: "dist", emptyOutDir: true },
 });
